@@ -3,17 +3,38 @@ import Logo from "../assets/Vastraafavicon.png";
 import { useNavigate } from "react-router-dom";
 import google from "../assets/google.png"
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { authDataContext } from "../context/AuthContext.jsx";
+import axios from "axios"
 
 
 
 function Registration() {
 
-  const navigate = useNavigate();
   const [showEye, setShowEye] = useState(false)
+  const {serverUrl} = useContext(authDataContext)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-
+  const navigate = useNavigate();
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      const result = await axios.post(serverUrl + "/api/auth/registration", {
+        name,
+        email,
+        password
+      },
+    {withCredentials: true})
+    console.log(result.data);
+    
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+  
   return (
     <div
       className="w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-white 
@@ -41,6 +62,7 @@ function Registration() {
       >
         <form
           action=""
+          onSubmit={handleSignUp}
           className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]"
         >
           <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[10px]">
@@ -58,6 +80,8 @@ function Registration() {
             placeholder-[#ffffffc7] px-5 font-semibold"
               placeholder="User Name"
               required
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
             <input
               type="text"
@@ -65,6 +89,8 @@ function Registration() {
             placeholder-[#ffffffc7] px-5 font-semibold"
               placeholder="Email"
               required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
             <input
               type={showEye ? "text" : "password"}
@@ -72,6 +98,8 @@ function Registration() {
             placeholder-[#ffffffc7] px-5 font-semibold"
               placeholder="Password"
               required
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             {!showEye && (
               <IoEyeOffOutline

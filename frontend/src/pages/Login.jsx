@@ -3,10 +3,32 @@ import { useNavigate } from "react-router-dom";
 import google from "../assets/google.png";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useContext } from "react";
+import { authDataContext } from "../context/AuthContext.jsx";
+import axios from "axios"
+
 
 function Login() {
   const navigate = useNavigate();
   const [showEye, setShowEye] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const {serverUrl} = useContext(authDataContext)
+
+    const handleLogin = async (e) => {
+      e.preventDefault()
+      try {
+        const result = await axios.post(serverUrl + "/api/auth/login", {
+          email,
+          password
+        }, { withCredentilas: true})
+        console.log(result.data);
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
 
   return (
     <div
@@ -35,6 +57,7 @@ function Login() {
       >
         <form
           action=""
+          onSubmit={handleLogin}
           className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]"
         >
           <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[10px]">
@@ -52,6 +75,8 @@ function Login() {
             placeholder-[#ffffffc7] px-5 font-semibold"
               placeholder="Email"
               required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
             <input
               type={showEye ? "text" : "password"}
@@ -59,6 +84,8 @@ function Login() {
             placeholder-[#ffffffc7] px-5 font-semibold"
               placeholder="Password"
               required
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             {!showEye && (
               <IoEyeOffOutline
@@ -73,7 +100,7 @@ function Login() {
               />
             )}
             <button className="w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center justify-center mt-5 text-[17px] font-semibold">
-              Create Account
+              Login
             </button>
             <p className="flex gap-[10px]">
               Don't have an account?
