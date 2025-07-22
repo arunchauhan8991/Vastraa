@@ -50,6 +50,8 @@ function Login() {
           },
           { withCredentials: true }
         );
+        getCurrentUser();
+        navigate("/");
         
       } catch (error) {
         console.log(error);

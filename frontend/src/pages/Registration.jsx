@@ -52,6 +52,8 @@ function Registration() {
         name,
         email  
       }, { withCredentials: true})
+      getCurrentUser();
+      navigate("/");
       
     } catch (error) {
       console.log(error);
