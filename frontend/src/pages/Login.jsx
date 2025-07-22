@@ -8,6 +8,7 @@ import { authDataContext } from "../context/AuthContext.jsx";
 import axios from "axios"
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/Firebase.js";
+import { userDataContext } from "../context/UserContext.jsx";
 
 
 function Login() {
@@ -16,6 +17,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const {serverUrl} = useContext(authDataContext)
+    const {getCurrentUser} = useContext(userDataContext)
 
     const handleLogin = async (e) => {
       e.preventDefault()
@@ -24,7 +26,8 @@ function Login() {
           email,
           password
         }, { withCredentilas: true})
-        console.log(result.data);
+        getCurrentUser()
+        navigate("/")
         
       } catch (error) {
         console.log(error);
