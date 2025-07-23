@@ -14,7 +14,7 @@ import { MdContacts } from "react-icons/md";
 
 
 function Navbar() {
-  const { userData, getCurrentUser } = useContext(userDataContext);
+  const { userData } = useContext(userDataContext);
   const [showSearch, setShowSearch] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate()
