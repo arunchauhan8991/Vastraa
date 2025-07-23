@@ -11,6 +11,8 @@ const checkAuth = async (req, res, next) => {
                 message: "User dont have a token"
             })
         }
+        
+        
         const verifyJWT = jwt.verify(token, process.env.JWT_SECRET);
         if(!verifyJWT){
             return res
