@@ -59,10 +59,10 @@ export const listProduct = async (req, res) => {
 export const removeProduct = async (req, res) => {
     try {
         const {id} = req.params
-        const product = await Product.finByIdAndDelete(id)
+        const product = await Product.findByIdAndDelete(id);
          return res.status(200).json(product);
     } catch (error) {
-        console.log("remove product Error ");
+        console.log("Remove product Error ");
         return res
           .status(500)
           .json({ message: `remove product Error: ${error}` });
