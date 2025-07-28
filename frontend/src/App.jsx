@@ -1,22 +1,57 @@
 import React, { useContext } from 'react'
 import Registration from './pages/Registration.jsx'
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useLocation, Navigate } from "react-router-dom"
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Navbar from "./component/Navbar.jsx"
 import { userDataContext } from './context/UserContext.jsx'
+import About from './pages/About.jsx'
+import Collections from './pages/Collections.jsx'
+import Product from './pages/Product.jsx'
+import Contact from './pages/Contact.jsx'
 
 function App() {
 
-  let{userData} = useContext(userDataContext)
+  const {userData} = useContext(userDataContext)
+  const location = useLocation()
 
   return (
     <>
     {userData && <Navbar />}
     <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/signup" element={<Registration/>} />
-      <Route path="/login" element={<Login/>} />
+
+      <Route path="/login" 
+      element={userData ? (<Navigate to={location.state?.from || "/"} />) : (<Login />)} 
+      />
+
+      <Route path="/signup"
+       element={userData ? (<Navigate to={location.state?.from || "/"} />) : (<Registration/>)} 
+       />
+
+      <Route path="/" 
+      element={ userData ? <Home /> : <Navigate to="/login" state={{from: location.pathname}} /> }
+       />
+      
+      <Route path="/about" 
+      element={userData ? <About /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/collection" 
+      element={userData ? <Collections /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/product" 
+      element={userData ? <Product /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/contact" 
+      element={userData ? <Contact /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+
     </Routes>
     </>
   )
