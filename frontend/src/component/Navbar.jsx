@@ -11,11 +11,12 @@ import axios from "axios";
 import { IoMdHome } from "react-icons/io";
 import { BiCollection } from "react-icons/bi";
 import { MdContacts } from "react-icons/md";
+import { shopDataContext } from "../context/ShopContext.jsx";
 
 
 function Navbar() {
   const { userData } = useContext(userDataContext);
-  const [showSearch, setShowSearch] = useState(false);
+  const {showSearch, setShowSearch, search, setSearch} = useContext(shopDataContext)
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate()
   const {serverUrl} = useContext(authDataContext)
@@ -72,7 +73,7 @@ function Navbar() {
         {!showSearch && (
           <IoSearchCircleOutline
             className="w-[41px] h-[41px] text-[#000000] cursor-pointer"
-            onClick={() => setShowSearch((prev) => !prev)}
+            onClick={() => {setShowSearch((prev) => !prev); navigate("/collection")}}
           />
         )}
         {showSearch && (
@@ -111,6 +112,8 @@ function Navbar() {
             type="text"
             className="lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-white text-[18px]"
             placeholder="Search Here"
+            onChange={(e) => {setSearch(e.target.value)}}
+            value={search}
           />
         </div>
       )}

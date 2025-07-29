@@ -6,11 +6,11 @@ import Card from './Card.jsx';
 function BestSeller() {
 
     const {products} = useContext(shopDataContext)
-    const [bestSeller, SetBestSeller] = useState([])
+    const [bestSeller, setBestSeller] = useState([])
 
     useEffect(() => {
         const filteredProduct = products.filter((item) => item.bestSeller)
-        SetBestSeller(filteredProduct.slice(0,4))
+        setBestSeller(filteredProduct.slice(0,4))
     },[products])
 
   return (
