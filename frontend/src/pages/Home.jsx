@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Background from '../component/Background.jsx';
 import Hero from '../component/Hero.jsx';
 import Product from './Product.jsx';
+import OurPolicy from '../component/OurPolicy.jsx';
+import ContactForm from '../component/ContactForm.jsx';
+import Footer from '../component/Footer.jsx';
 
 function Home() {
   let heroData = [
@@ -32,6 +35,9 @@ function Home() {
         />
       </div>
       <Product/>
+      <OurPolicy />
+      <ContactForm />
+      <Footer />
     </div>
   );
 }
