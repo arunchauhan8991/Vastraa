@@ -75,7 +75,7 @@ function ContactForm() {
         >
           Subscribe
         </button>
-        <p>{status}</p>
+        <p className="text-white text-[15px] md:text-[16px]">{status}</p>
       </form>
       ;
     </div>
