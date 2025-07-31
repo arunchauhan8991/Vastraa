@@ -10,6 +10,8 @@ import Collections from './pages/Collections.jsx'
 import Product from './pages/Product.jsx'
 import Contact from './pages/Contact.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
+import Cart from './pages/Cart.jsx'
+import PlaceOrder from './pages/PlaceOrder.jsx'
 
 function App() {
 
@@ -55,6 +57,16 @@ function App() {
       <Route 
       path="/productdetail/:productId" 
       element={userData ? <ProductDetail /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/cart" 
+      element={userData ? <Cart /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/placeorder" 
+      element={userData ? <PlaceOrder /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
       />
 
 
