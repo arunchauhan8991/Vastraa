@@ -16,7 +16,7 @@ import { shopDataContext } from "../context/ShopContext.jsx";
 
 function Navbar() {
   const { userData } = useContext(userDataContext);
-  const {showSearch, setShowSearch, search, setSearch} = useContext(shopDataContext)
+  const {showSearch, setShowSearch, search, setSearch, getCartCount} = useContext(shopDataContext)
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate()
   const {serverUrl} = useContext(authDataContext)
@@ -73,7 +73,10 @@ function Navbar() {
         {!showSearch && (
           <IoSearchCircleOutline
             className="w-[41px] h-[41px] text-[#000000] cursor-pointer"
-            onClick={() => {setShowSearch((prev) => !prev); navigate("/collection")}}
+            onClick={() => {
+              setShowSearch((prev) => !prev);
+              navigate("/collection");
+            }}
           />
         )}
         {showSearch && (
@@ -97,12 +100,15 @@ function Navbar() {
           </div>
         )}
 
-        <TfiShoppingCart className="w-[30px] h-[30px] text-[#000000] cursor-pointer hidden md:block" />
+        <TfiShoppingCart
+          className="w-[30px] h-[30px] text-[#000000] cursor-pointer hidden md:block"
+          onClick={() => navigate("/cart")}
+        />
         <p
           className="absolute w-[18px] h-[18px] items-center justify-center bg-black px-[6px] py-[2px] text-white
         rounded-full text-[10px] top-[10px] right-[23px] hidden md:block"
         >
-          2
+          {getCartCount()}
         </p>
       </div>
 
@@ -112,7 +118,9 @@ function Navbar() {
             type="text"
             className="lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-white text-[18px]"
             placeholder="Search Here"
-            onChange={(e) => {setSearch(e.target.value)}}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
             value={search}
           />
         </div>
@@ -182,7 +190,10 @@ function Navbar() {
           <MdContacts className="w-[28px] h-[28px] text-white md:hidden" />
           Contact
         </button>
-        <button className="text-white flex items-center justify-center flex-col gap-[2px]">
+        <button
+          className="text-white flex items-center justify-center flex-col gap-[2px]"
+          onClick={() => navigate("/cart")}
+        >
           <TfiShoppingCart className="w-[28px] h-[28px] text-white md:hidden" />
           Cart
         </button>
@@ -190,7 +201,7 @@ function Navbar() {
           className="absolute w-[18px] h-[18px] flex items-center justify-center bg-white px-[5px] py-[2px] text-black
         font-semibold rounded-full text-[9px] top-[8px] right-[18px] "
         >
-          2
+          {getCartCount()}
         </p>
       </div>
     </div>
