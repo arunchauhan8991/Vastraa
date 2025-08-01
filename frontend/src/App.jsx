@@ -12,6 +12,7 @@ import Contact from './pages/Contact.jsx'
 import ProductDetail from './pages/ProductDetail.jsx'
 import Cart from './pages/Cart.jsx'
 import PlaceOrder from './pages/PlaceOrder.jsx'
+import Order from './pages/Order.jsx'
 
 function App() {
 
@@ -67,6 +68,11 @@ function App() {
       <Route 
       path="/placeorder" 
       element={userData ? <PlaceOrder /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="/order" 
+      element={userData ? <Order /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
       />
 
 
