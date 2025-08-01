@@ -15,7 +15,7 @@ import { shopDataContext } from "../context/ShopContext.jsx";
 
 
 function Navbar() {
-  const { userData } = useContext(userDataContext);
+  const {getCurrentUser, userData } = useContext(userDataContext);
   const {showSearch, setShowSearch, search, setSearch, getCartCount} = useContext(shopDataContext)
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate()
