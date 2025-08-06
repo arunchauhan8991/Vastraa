@@ -45,7 +45,7 @@ useEffect(()=>{
               <img
                 src={item.image1}
                 alt=""
-                className="w-[130px] h-[130px] rounded-md "
+                className="w-[130px] h-[130px] rounded-md object-cover "
               />
               <div className="flex items-start justify-center flex-col gap-[5px]">
                 <p className="md:text-[25px] text-[20px] text-[#f3f9fc]">
