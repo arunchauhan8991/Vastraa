@@ -7,6 +7,7 @@ import Orders from './pages/Orders.jsx'
 import Login from './pages/Login.jsx'
 import { useContext } from 'react'
 import { adminDataContext } from './context/AdminContext.jsx'
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
 
@@ -14,19 +15,22 @@ function App() {
 
   return (
     <>
-    {!adminData ? <Login /> : <>
-    
-    <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add" element={<Add />} />
-        <Route path="/lists" element={<Lists />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/login" element={<Login />} />
-    </Routes>
+      <ToastContainer />
+      {!adminData ? (
+        <Login />
+      ) : (
+        <>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/add" element={<Add />} />
+            <Route path="/lists" element={<Lists />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </>
+      )}
     </>
-    }
-    </>
-  )
+  );
 }
 
 export default App

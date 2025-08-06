@@ -5,6 +5,7 @@ import axios from "axios"
 import { authDataContext } from '../context/AuthContext.jsx';
 import { adminDataContext } from '../context/AdminContext.jsx';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Login() {
 
@@ -20,11 +21,13 @@ function Login() {
     try {
       const result = await axios.post(serverUrl + "/api/auth/adminlogin",{email, password}, {withCredentials: true})
       console.log(result.data);
+      toast.success("Admin Login Succesfully")
       getAdmin()
       navigate("/")
 
     } catch (error) {
       console.log(error);
+      toast.error("Admin Login Failed")
       
     }
   }
