@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(
   cors({
-    origin: ["http://localhost:5174", "http://localhost:5175"],
+    origin: ["https://vastraa-frontend-tey9.onrender.com", "http://localhost:5175"],
     credentials: true,
   })
 );
