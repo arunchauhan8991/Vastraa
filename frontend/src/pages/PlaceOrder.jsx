@@ -8,6 +8,8 @@ import { shopDataContext } from '../context/ShopContext.jsx';
 import { authDataContext } from '../context/AuthContext.jsx';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import Loading from "../component/Loading.jsx";
 
 function PlaceOrder() {
 
@@ -15,6 +17,8 @@ function PlaceOrder() {
   const navigate = useNavigate()
   const {cartItem , setCartItem , getCartAmount , delivery_fee , products } = useContext(shopDataContext)
   const {serverUrl} = useContext(authDataContext)
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -59,6 +63,7 @@ function PlaceOrder() {
 
 
   const onSubmitHandler = async (e) => {
+    setLoading(true);
     e.preventDefault()
     try {
       
@@ -89,9 +94,13 @@ function PlaceOrder() {
           console.log(result.data);
           if (result.data) {
             setCartItem({});
+            toast.success("Order Placed");
             navigate("/order");
+            setLoading(false);
           } else {
             console.log(result.data.message);
+            toast.error("Order Placed Error");
+            setLoading(false);
           }
           break;
 
@@ -99,6 +108,8 @@ function PlaceOrder() {
         const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
         if(resultRazorpay.data){
           initPay(resultRazorpay.data)
+          toast.success("Order Placed");
+          setLoading(false);
         }
 
         break;
@@ -241,7 +252,7 @@ function PlaceOrder() {
           flex items-center justify-center gap-[20px] absolute lg:right-[20%] bottom-[10%] right-[35%] border-[1px] border-[#80808049] 
           ml-[30px] mt-[20px]"
             >
-              PLACE ORDER
+              {loading ? <Loading /> : "PLACE ORDER"}
             </button>
           </div>
         </form>

@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom'
 import { shopDataContext } from '../context/ShopContext.jsx'
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import RelatedProduct from '../component/RelatedProduct.jsx';
+import Loading from "../component/Loading.jsx";
+
 
 function ProductDetail() {
 
     const {productId} = useParams()
-    const {products, currency, addToCart} = useContext(shopDataContext)
+    const {products, currency, addToCart, loading} = useContext(shopDataContext)
     const [productData, setProductData] = useState(false)
+    
 
     const [image, setImage] = useState("");
     const [image1, setImage1] = useState("");
@@ -135,7 +138,7 @@ function ProductDetail() {
               border-[1px] border-[#80808049] text-white shadow-md shadow-black"
               onClick={() => addToCart(productData._id, size)}
             >
-              Add to Cart
+              {loading? <Loading/> : "Add to Cart"}
             </button>
           </div>
           <div className="w-[90%] h-[1px] bg-slate-700"></div>

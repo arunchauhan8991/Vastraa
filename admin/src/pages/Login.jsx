@@ -15,8 +15,10 @@ function Login() {
   const {serverUrl} = useContext(authDataContext)
   const {adminData, getAdmin} = useContext(adminDataContext)
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
 
   const adminLogin = async (e) => {
+    setLoading(true);
     e.preventDefault()
     try {
       const result = await axios.post(serverUrl + "/api/auth/adminlogin",{email, password}, {withCredentials: true})
@@ -24,10 +26,12 @@ function Login() {
       toast.success("Admin Login Succesfully")
       getAdmin()
       navigate("/")
+      setLoading(false)
 
     } catch (error) {
       console.log(error);
       toast.error("Admin Login Failed")
+      setLoading(false)
       
     }
   }

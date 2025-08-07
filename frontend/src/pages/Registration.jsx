@@ -9,6 +9,8 @@ import axios from "axios"
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/Firebase.js";
 import { userDataContext } from "../context/UserContext.jsx";
+import { toast } from "react-toastify";
+import Loading from "../component/Loading";
 
 
 
@@ -20,9 +22,12 @@ function Registration() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const {userData, getCurrentUser} = useContext(userDataContext)
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+
   const handleSignUp = async (e) => {
+    setLoading(true);
     e.preventDefault()
     try {
       const result = await axios.post(serverUrl + "/api/auth/registration", {
@@ -33,11 +38,13 @@ function Registration() {
     {withCredentials: true})
     getCurrentUser()
     navigate("/")
+    toast.success("User Registration Successful");
     console.log(result.data)
+    setLoading(false);
     
     } catch (error) {
       console.log(error);
-      
+      toast.error("User Registration Failed");
     }
   }
   
@@ -54,10 +61,10 @@ function Registration() {
       }, { withCredentials: true})
       getCurrentUser();
       navigate("/");
-      
+      toast.success("User Registration Successful");
     } catch (error) {
       console.log(error);
-      
+      toast.error("User Registration Failed");
     }
   }
 
@@ -143,7 +150,7 @@ function Registration() {
               />
             )}
             <button className="w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center justify-center mt-5 text-[17px] font-semibold">
-              Create Account
+              {loading? <Loading/> :"Create Account"}
             </button>
             <p className="flex gap-[10px]">
               Already have an account? Please

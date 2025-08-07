@@ -13,6 +13,7 @@ import ProductDetail from './pages/ProductDetail.jsx'
 import Cart from './pages/Cart.jsx'
 import PlaceOrder from './pages/PlaceOrder.jsx'
 import Order from './pages/Order.jsx'
+import NotFound from './pages/NotFound.jsx'
 
 function App() {
 
@@ -73,6 +74,11 @@ function App() {
       <Route 
       path="/order" 
       element={userData ? <Order /> : <Navigate to="/login" state={{from: location.pathname}} /> } 
+      />
+
+      <Route 
+      path="*" 
+      element={ <NotFound /> } 
       />
 
 
