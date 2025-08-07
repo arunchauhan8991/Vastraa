@@ -1,17 +1,15 @@
-
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import Add from './pages/Add.jsx'
-import Lists from './pages/Lists.jsx'
-import Orders from './pages/Orders.jsx'
-import Login from './pages/Login.jsx'
-import { useContext } from 'react'
-import { adminDataContext } from './context/AdminContext.jsx'
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Add from "./pages/Add.jsx";
+import Lists from "./pages/Lists.jsx";
+import Orders from "./pages/Orders.jsx";
+import Login from "./pages/Login.jsx";
+import { useContext } from "react";
+import { adminDataContext } from "./context/AdminContext.jsx";
 import { ToastContainer, toast } from "react-toastify";
 
 function App() {
-
-  const { adminData } = useContext(adminDataContext)
+  const { adminData } = useContext(adminDataContext);
 
   return (
     <>
@@ -33,4 +31,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
